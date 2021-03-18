@@ -1,0 +1,4 @@
+GeneratedBarFiles
+.metadata
+/gen/**
+**/gen/**

@@ -1,0 +1,68 @@
+
+
+CREATE COMPUTE MODULE postA_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		
+		DECLARE ns NAMESPACE 'http://www.finacle.com/fixml';
+		DECLARE xsi NAMESPACE 'http://www.finacle.com/fixml DeDuplicationInq.xsd';
+		
+		CREATE FIRSTCHILD OF OutputRoot.XMLNSC TYPE XMLNSC.XmlDeclaration NAME 'XmlDeclaration';
+		SET OutputRoot.XMLNSC.(XMLNSC.XmlDeclaration)*.(XMLNSC.Attribute)Version = '1.0';
+		SET OutputRoot.XMLNSC.(XMLNSC.XmlDeclaration)*.(XMLNSC.Attribute)Encoding = 'UTF-8';
+		SET OutputRoot.XMLNSC.(XMLNSC.XmlDeclaration)*.(XMLNSC.Attribute)StandAlone = 'yes';
+		
+		
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.GlobalUUID =UUIDASCHAR;
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.RequestUUID=UUIDASCHAR;
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.RequestMessageInfo.BankId='01';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.RequestMessageInfo.MessageDateTime= CURRENT_TIMESTAMP;
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.ServiceId='DeDuplicationInq';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.ServiceRequestVersion='11.10';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.ChannelId='CRM';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.AccessToken='';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.ClientIP = '';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.OriginatorInstanceId = '';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.OriginatorVersion = '';
+		SET OutputRoot.XMLNSC.ns:FIXML.Header.RequestHeader.MessageKey.LanguageId = '';
+		
+		SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.PersonName.LastName = InputRoot.JSON.Data.PersonName.LastName;
+		
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.RecCtrlIn.MaxRec = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.RecCtrlIn.MaxRec;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.RecCtrlIn.ReferenceNumber = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.RecCtrlIn.ReferenceNumber;
+		
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.CIFID = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.CIFID;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.BirthDt = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.BirthDt;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.ShortName = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.ShortName;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.SearchEntityType = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.SearchEntityType;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.IsAcrossEntity = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.IsAcrossEntity;
+		
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.PersonName.LastName = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.PersonName.LastName;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.PersonName.FirstName = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.PersonName.FirstName;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.PersonName.MiddleName = InputRoot.JSON.Data.DeDuplicationInqRequest.DeDuplicationInqRq.PersonName.MiddleName;
+		
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.Phone = InputRoot.JSON.Data.Phone;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.Email = InputRoot.JSON.Data.Email;
+		--SET OutputRoot.XMLNSC.ns:FIXML.Body.DeDuplicationInqRequest.DeDuplicationInqRq.taxId = InputRoot.JSON.Data.taxId;
+		
+		
+		
+		
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

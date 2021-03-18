@@ -1,0 +1,260 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "CB_Dedup",
+    "version" : "1.0.0",
+    "description" : "CB_Dedup"
+  },
+  "paths" : {
+    "/" : {
+      "post" : {
+        "operationId" : "postA",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/DeDuplicationInqResponse"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a a",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/DeDuplicationInqRequest"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/cb_dedup/v1",
+  "definitions" : {
+    "DeDuplicationInqRequest" : {
+      "type" : "object",
+      "properties" : {
+        "DeDuplicationInqRq" : {
+          "type" : "object",
+          "properties" : {
+            "RecCtrlIn" : {
+              "type" : "object",
+              "properties" : {
+                "MaxRec" : {
+                  "type" : "string"
+                },
+                "ReferenceNumber" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "CIFID" : {
+              "type" : "string"
+            },
+            "BirthDt" : {
+              "type" : "string"
+            },
+            "ShortName" : {
+              "type" : "string"
+            },
+            "SearchEntityType" : {
+              "type" : "string"
+            },
+            "IsAcrossEntity" : {
+              "type" : "string"
+            },
+            "PersonName" : {
+              "type" : "object",
+              "properties" : {
+                "LastName" : {
+                  "type" : "string"
+                },
+                "FirstName" : {
+                  "type" : "string"
+                },
+                "MiddleName" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "Phone" : {
+              "type" : "string"
+            },
+            "Email" : {
+              "type" : "string"
+            },
+            "taxId" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "DeDuplicationInqResponse" : {
+      "type" : "object",
+      "properties" : {
+        "DeDuplicationInqRs" : {
+          "type" : "object",
+          "properties" : {
+            "RecCtrlOut" : {
+              "type" : "object",
+              "properties" : {
+                "HasMore" : {
+                  "type" : "string"
+                },
+                "ReferenceNumber" : {
+                  "type" : "string"
+                },
+                "PageNumber" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "DeduplicationRec" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "properties" : {
+                  "SSN" : {
+                    "type" : "string"
+                  },
+                  "Email" : {
+                    "type" : "string"
+                  },
+                  "PhoneNum" : {
+                    "type" : "string"
+                  },
+                  "taxId" : {
+                    "type" : "string"
+                  },
+                  "StreetNo" : {
+                    "type" : "string"
+                  },
+                  "HouseNo" : {
+                    "type" : "string"
+                  },
+                  "AddressLine3" : {
+                    "type" : "string"
+                  },
+                  "AddressLine2" : {
+                    "type" : "string"
+                  },
+                  "AddressLine1" : {
+                    "type" : "string"
+                  },
+                  "CustId" : {
+                    "type" : "string"
+                  },
+                  "CustType" : {
+                    "type" : "string"
+                  },
+                  "ContactId" : {
+                    "type" : "string"
+                  },
+                  "IDDocType1" : {
+                    "type" : "string"
+                  },
+                  "IDDocType2" : {
+                    "type" : "string"
+                  },
+                  "IDDocType3" : {
+                    "type" : "string"
+                  },
+                  "IDDocType4" : {
+                    "type" : "string"
+                  },
+                  "IDDocType5" : {
+                    "type" : "string"
+                  },
+                  "IDDocType6" : {
+                    "type" : "string"
+                  },
+                  "IDDocType7" : {
+                    "type" : "string"
+                  },
+                  "IDDocType8" : {
+                    "type" : "string"
+                  },
+                  "IDDocType9" : {
+                    "type" : "string"
+                  },
+                  "IDDocType10" : {
+                    "type" : "string"
+                  },
+                  "PersonName" : {
+                    "type" : "object",
+                    "properties" : {
+                      "Name" : {
+                        "type" : "string"
+                      },
+                      "LastName" : {
+                        "type" : "string"
+                      },
+                      "FirstName" : {
+                        "type" : "string"
+                      },
+                      "MiddleName" : {
+                        "type" : "string"
+                      }
+                    }
+                  },
+                  "ShortName" : {
+                    "type" : "string"
+                  },
+                  "BirthDt" : {
+                    "type" : "string"
+                  },
+                  "NonCustId" : {
+                    "type" : "string"
+                  },
+                  "ProspectId" : {
+                    "type" : "string"
+                  },
+                  "BankId" : {
+                    "type" : "string"
+                  },
+                  "PremiseName" : {
+                    "type" : "string"
+                  },
+                  "BuildingLevel" : {
+                    "type" : "string"
+                  },
+                  "Suburb" : {
+                    "type" : "string"
+                  },
+                  "StreetName" : {
+                    "type" : "string"
+                  },
+                  "LocalityName" : {
+                    "type" : "string"
+                  },
+                  "Town" : {
+                    "type" : "string"
+                  },
+                  "City" : {
+                    "type" : "string"
+                  },
+                  "NationalID" : {
+                    "type" : "string"
+                  },
+                  "PANNo" : {
+                    "type" : "string"
+                  },
+                  "DriversLicenseNo" : {
+                    "type" : "string"
+                  },
+                  "PassportNo" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
